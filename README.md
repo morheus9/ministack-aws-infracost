@@ -11,7 +11,7 @@ docker compose up -d
 ```
 or
 ```bash
-make ministack-up
+just ministack-up
 ```
 
 EKS needs Docker socket in the container (see `docker-compose.yml`).
@@ -33,8 +33,11 @@ aws --endpoint-url=http://localhost:4566 dynamodb create-table \
 ```
 ___________________________________________________________________________________
 
-Or one step: `make bootstrap` (starts Ministack and runs the commands above).
-
+Or one step:
+```bash
+`just bootstrap` 
+```
+ (starts Ministack and runs the commands above)
 ### Checking S3 bucket
 
 ```bash
@@ -73,24 +76,21 @@ provider_installation {
 EOF
 ```
 ```bash
-
-cd ~/Downloads/ministack-aws-infracost
-
 CLOUD=ministack terragrunt run --all init
 CLOUD=ministack terragrunt run --all plan
 CLOUD=ministack terragrunt run --all apply
 CLOUD=ministack terragrunt run --all destroy
 ```
 
-Shorthand via Makefile (from the **repository root**, not from `live/`):
+Shorthand via justfile (from the **repository root**, not from `live/`):
 
 ```bash
-make local-plan
-make local-apply
-make local-destroy
+just local-plan
+just local-apply
+just local-destroy
 
 # prod environment:
-make local-plan ENV=prod
+just local-plan ENV=prod
 ```
 
 ## Layout
