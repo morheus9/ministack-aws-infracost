@@ -58,7 +58,20 @@ docker compose logs -f ministack
 
 Default target is local Ministack (`CLOUD=ministack`, region `us-east-1`). For real AWS use `CLOUD=aws` (region `eu-central-1`, see `live/aws.hcl`).
 
+cat << 'EOF' > ~/.terraformrc
+provider_installation {
+  network_mirror {
+    url = "https://terraform-mirror.yandexcloud.net/"
+    include = ["registry.terraform.io/*/*"]
+  }
+  direct {
+    exclude = ["registry.terraform.io/*/*"]
+  }
+}
+EOF
+
 ```bash
+
 cd ~/Downloads/ministack-aws-infracost
 
 CLOUD=ministack terragrunt run --all init

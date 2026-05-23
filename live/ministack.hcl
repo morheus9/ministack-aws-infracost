@@ -61,7 +61,7 @@ remote_state {
 
 generate "provider" {
   path      = "provider.tf"
-  if_exists = "overwrite"
+  if_exists = "overwrite_terragrunt"
 
   contents = <<EOF
 provider "aws" {
@@ -69,10 +69,12 @@ provider "aws" {
   access_key                  = "test"
   secret_key                  = "test"
 
-  s3_use_path_style           = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
+  skip_region_validation      = true
+
+  s3_use_path_style = true
 
   endpoints {
     autoscaling    = "${local.aws_endpoint}"
@@ -88,7 +90,7 @@ provider "aws" {
   }
 
   default_tags {
-    tags = ${jsonencode(local.default_tags)}
+    tags = ${jsonencode(read_terragrunt_config("${get_parent_terragrunt_dir()}/root.hcl").locals.default_tags)}
   }
 }
 EOF
