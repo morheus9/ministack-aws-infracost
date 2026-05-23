@@ -58,6 +58,8 @@ docker compose logs -f ministack
 
 Default target is local Ministack (`CLOUD=ministack`, region `us-east-1`). For real AWS use `CLOUD=aws` (region `eu-central-1`, see `live/aws.hcl`).
 
+Setup provider:
+```bash
 cat << 'EOF' > ~/.terraformrc
 provider_installation {
   network_mirror {
@@ -69,7 +71,7 @@ provider_installation {
   }
 }
 EOF
-
+```
 ```bash
 
 cd ~/Downloads/ministack-aws-infracost
@@ -108,12 +110,10 @@ modules/
   eks/
 ```
 
-| `CLOUD` | Profile file | Region |
-|---------|--------------|--------|
-| `ministack` (default) | `live/ministack.hcl` | us-east-1 |
-| `aws` | `live/aws.hcl` | eu-central-1 |
-
-Obsolete local folders (`live/clouds`, `modules/network`, `modules/networking`): `make clean-legacy`
+|        `CLOUD`        |        Profile File        |     Region     |
+|-----------------------|----------------------------|----------------|
+| `ministack` (default) | `live/ministack.hcl`       | `us-east-1`    |
+| `aws`                 | `live/aws.hcl`             | `eu-central-1` |
 
 ## Docs
 
