@@ -1,0 +1,17 @@
+services:
+  ministack:
+    image: ministackorg/ministack:latest
+    container_name: ministack
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ministack_data:/var/lib/ministack
+    environment:
+      MINISTACK_REGION: us-east-1
+      AWS_DEFAULT_REGION: us-east-1
+      GATEWAY_PORT: "4566"
+    restart: unless-stopped
+
+volumes:
+  ministack_data:
