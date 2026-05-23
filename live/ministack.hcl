@@ -3,13 +3,34 @@ locals {
   aws_region         = "us-east-1"
   vpc_cidr           = "10.0.0.0/16"
   kubernetes_version = "1.33"
-  azs                = ["us-east-1a", "us-east-1b", "us-east-1c"]
-  private_subnets    = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 
-  aws_endpoint   = get_env("MINISTACK_ENDPOINT", "http://localhost:4566")
+  azs = [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c"
+  ]
+
+  private_subnets = [
+    "10.0.1.0/24",
+    "10.0.2.0/24",
+    "10.0.3.0/24"
+  ]
+
+  public_subnets = [
+    "10.0.101.0/24",
+    "10.0.102.0/24",
+    "10.0.103.0/24"
+  ]
+
+  aws_endpoint = get_env("MINISTACK_ENDPOINT", "http://localhost:4566")
+
   tfstate_bucket = "finops-ministack-tfstate"
   tfstate_lock   = "finops-ministack-lock"
+
+  default_tags = {
+    ManagedBy = "Terragrunt"
+    Project   = "ministack"
+  }
 }
 
 remote_state {
@@ -32,20 +53,22 @@ remote_state {
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_region_validation      = true
-    access_key                  = "test"
-    secret_key                  = "test"
+
+    access_key = "test"
+    secret_key = "test"
   }
 }
 
 generate "provider" {
   path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "overwrite"
 
   contents = <<EOF
 provider "aws" {
   region                      = "${local.aws_region}"
   access_key                  = "test"
   secret_key                  = "test"
+
   s3_use_path_style           = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
@@ -65,7 +88,7 @@ provider "aws" {
   }
 
   default_tags {
-    tags = ${jsonencode(read_terragrunt_config("${get_terragrunt_dir()}/root.hcl").locals.default_tags)}
+    tags = ${jsonencode(local.default_tags)}
   }
 }
 EOF

@@ -2,14 +2,14 @@ locals {
   project = "finops-ministack"
 
   default_tags = {
-    Project   = local.project
+    Project   = "ministack"
     ManagedBy = "Terragrunt"
   }
 }
 
 generate "versions" {
   path      = "versions.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "overwrite"
 
   contents = <<EOF
 terraform {

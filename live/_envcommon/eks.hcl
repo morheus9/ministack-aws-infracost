@@ -1,5 +1,5 @@
 terraform {
-  source = "${dirname(find_in_parent_folders("root.hcl"))}/../modules/eks"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=v18.23.0"
 }
 
 dependency "vpc" {
