@@ -50,26 +50,26 @@ bootstrap:
 # ----------------------------
 
 local-plan:
-    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run-all plan
+    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run --all plan
 
 local-apply:
-    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run-all apply --terragrunt-non-interactive
+    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run --all apply --terragrunt-non-interactive
 
 local-destroy:
-    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run-all destroy --terragrunt-non-interactive
+    cd {{ENV_DIR}} && CLOUD=ministack terragrunt run --all destroy --terragrunt-non-interactive
 
 # ----------------------------
 # TERRAGRUNT (AWS PRODUCTION/STAGING)
 # ----------------------------
 
 aws-plan:
-    cd {{ENV_DIR}} && CLOUD=aws terragrunt run-all plan
+    cd {{ENV_DIR}} && CLOUD=aws terragrunt run --all plan
     
 aws-apply:
-    cd {{ENV_DIR}} && CLOUD=aws terragrunt run-all apply --terragrunt-non-interactive
+    cd {{ENV_DIR}} && CLOUD=aws terragrunt run --all apply --terragrunt-non-interactive
 
 aws-destroy:
-    cd {{ENV_DIR}} && CLOUD=aws terragrunt run-all destroy --terragrunt-non-interactive
+    cd {{ENV_DIR}} && CLOUD=aws terragrunt run --all destroy --terragrunt-non-interactive
 
 # ----------------------------
 # FINOPS & DEVSECOPS CONTROLS

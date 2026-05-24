@@ -4,7 +4,7 @@ Example of [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/ins
 
 FinOps pet project: VPC + EKS via [terraform-aws-modules](https://registry.terraform.io/namespaces/terraform-aws-modules).
 
-## Ministack
+### 1. Start ministack
 
 ```bash
 docker compose up -d
@@ -16,13 +16,13 @@ just ministack-up
 
 EKS needs Docker socket in the container (see `docker-compose.yml`).
 
-### Create S3 bucket
+### 2. Create S3 bucket
 
 ```bash
 aws --endpoint-url=http://localhost:4566 s3 mb s3://finops-ministack-tfstate
 ```
 
-### Create DynamoDB table for locks
+### 3. Create DynamoDB table for locks
 
 ```bash
 aws --endpoint-url=http://localhost:4566 dynamodb create-table \
@@ -31,13 +31,11 @@ aws --endpoint-url=http://localhost:4566 dynamodb create-table \
     --key-schema AttributeName=LockID,KeyType=HASH \
     --billing-mode PAY_PER_REQUEST
 ```
-___________________________________________________________________________________
 
-Or one step:
+### Or in one step:
 ```bash
-`just bootstrap` 
+just bootstrap
 ```
- (starts Ministack and runs the commands above)
 ### Checking S3 bucket
 
 ```bash
@@ -83,14 +81,25 @@ CLOUD=ministack terragrunt run --all destroy
 ```
 
 Shorthand via justfile (from the **repository root**, not from `live/`):
-
 ```bash
+sudo snap install just
+# ministack environment:
 just local-plan
 just local-apply
 just local-destroy
 
-# prod environment:
-just local-plan ENV=prod
+just ENV=prod local-plan
+just ENV=prod local-apply
+just ENV=prod local-destroy
+
+# aws environment:
+just aws-plan
+just aws-apply
+just aws-destroy
+
+just ENV=prod aws-plan
+just ENV=prod aws-apply
+just ENV=prod aws-destroy
 ```
 
 ## Layout

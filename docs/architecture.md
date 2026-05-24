@@ -17,8 +17,8 @@ vpc -> eks (terragrunt dependency)
 
 ## EKS profiles
 
-| | Ministack | AWS |
-|---|-----------|-----|
-| Node groups | off (`is_local`) | on |
-| KMS / IRSA / addons | off | on |
-| Runtime | k3s container | real EKS |
+|                     |    Ministack     |    AWS   |
+|---------------------|------------------|----------|
+| Node groups         | off (`is_local`) |    on    |
+| KMS / IRSA / addons | off              |    on    |
+| Runtime             |   k3s container  | real EKS |
