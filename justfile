@@ -8,7 +8,7 @@ TFSTATE_BUCKET := "finops-ministack-tfstate"
 TFSTATE_LOCK := "finops-ministack-lock"
 
 ENV := "staging"
-ENV_DIR := "live/aws/" + REGION + "/" + ENV
+ENV_DIR := "live/" + ENV
 
 # Показать список всех доступных команд
 default:
