@@ -2,10 +2,11 @@ set shell := ["bash", "-cu"]
 
 CLOUD := "ministack"
 MINISTACK_ENDPOINT := "http://localhost:4566"
-REGION := "eu-central-1"
+MINISTACK_REGION := "us-east-1"
+AWS_REGION := get_env("AWS_REGION", "eu-central-1")
 
-TFSTATE_BUCKET := "finops-ministack-tfstate"
-TFSTATE_LOCK := "finops-ministack-lock"
+TFSTATE_BUCKET := "finops-ministack-tfstate-" + MINISTACK_REGION
+TFSTATE_LOCK := "finops-ministack-lock-" + MINISTACK_REGION
 
 ENV := "staging"
 ENV_DIR := "live/" + ENV

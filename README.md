@@ -19,14 +19,14 @@ EKS needs Docker socket in the container (see `docker-compose.yml`).
 ### 2. Create S3 bucket
 
 ```bash
-aws --endpoint-url=http://localhost:4566 s3 mb s3://finops-ministack-tfstate
+aws --endpoint-url=http://localhost:4566 s3 mb s3://finops-ministack-tfstate-us-east-1
 ```
 
 ### 3. Create DynamoDB table for locks
 
 ```bash
 aws --endpoint-url=http://localhost:4566 dynamodb create-table \
-    --table-name finops-ministack-lock \
+    --table-name finops-ministack-lock-us-east-1 \
     --attribute-definitions AttributeName=LockID,AttributeType=S \
     --key-schema AttributeName=LockID,KeyType=HASH \
     --billing-mode PAY_PER_REQUEST
@@ -55,7 +55,7 @@ docker compose ps
 docker compose logs -f ministack
 ```
 
-## Install infra
+### Install infra
 
 Default target is local Ministack (`CLOUD=ministack`, region `us-east-1`). For real AWS use `CLOUD=aws` (region `eu-central-1`, see `live/aws.hcl`).
 
@@ -74,32 +74,39 @@ provider_installation {
 EOF
 ```
 ```bash
+cd live/staging
+CLOUD=ministack terragrunt run --all init
+CLOUD=ministack terragrunt run --all plan
+CLOUD=ministack terragrunt run --all apply
+CLOUD=ministack terragrunt run --all destroy
+
+cd live/prod
 CLOUD=ministack terragrunt run --all init
 CLOUD=ministack terragrunt run --all plan
 CLOUD=ministack terragrunt run --all apply
 CLOUD=ministack terragrunt run --all destroy
 ```
 
-Shorthand via justfile (from the **repository root**, not from `live/`):
+### Shorthand via justfile (from the **repository root**, not from `live/`):
 ```bash
 sudo snap install just
-# ministack environment:
-just local-plan
-just local-apply
-just local-destroy
+# Ministack environment (default: staging)
+just local-plan             # → plan for staging
+just local-apply            # → apply for staging
+just local-destroy          # → destroy staging
 
-just ENV=prod local-plan
-just ENV=prod local-apply
-just ENV=prod local-destroy
+just ENV=prod local-plan    # → plan for prod
+just ENV=prod local-apply   # → apply for prod
+just ENV=prod local-destroy # → destroy prod
 
 # aws environment:
-just aws-plan
-just aws-apply
-just aws-destroy
+just aws-plan               # → plan for staging
+just aws-apply              # → apply for staging
+just aws-destroy            # → destroy staging
 
-just ENV=prod aws-plan
-just ENV=prod aws-apply
-just ENV=prod aws-destroy
+just ENV=prod aws-plan      # → plan for prod
+just ENV=prod aws-apply     # → apply for prod
+just ENV=prod aws-destroy   # → destroy prod
 ```
 
 ## Layout
