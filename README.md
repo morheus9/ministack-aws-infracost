@@ -48,7 +48,7 @@ aws --endpoint-url=http://localhost:4566 s3 ls
 aws --endpoint-url=http://localhost:4566 dynamodb list-tables
 ```
 
-### Checking status of Ministack
+### Checking status of ministack
 
 ```bash
 docker compose ps
