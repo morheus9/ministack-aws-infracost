@@ -9,10 +9,6 @@ FinOps pet project: VPC + EKS via [terraform-aws-modules](https://registry.terra
 ```bash
 docker compose up -d
 ```
-or
-```bash
-just ministack-up
-```
 
 EKS needs Docker socket in the container (see `docker-compose.yml`).
 
@@ -32,10 +28,6 @@ aws --endpoint-url=http://localhost:4566 dynamodb create-table \
     --billing-mode PAY_PER_REQUEST
 ```
 
-### Or in one step:
-```bash
-just bootstrap
-```
 ### Checking S3 bucket
 
 ```bash
@@ -85,28 +77,6 @@ CLOUD=ministack terragrunt run --all init
 CLOUD=ministack terragrunt run --all plan
 CLOUD=ministack terragrunt run --all apply
 CLOUD=ministack terragrunt run --all destroy
-```
-
-### Shorthand via justfile (from the **repository root**, not from `live/`):
-```bash
-sudo snap install just
-# Ministack environment (default: staging)
-just local-plan             # → plan for staging
-just local-apply            # → apply for staging
-just local-destroy          # → destroy staging
-
-just ENV=prod local-plan    # → plan for prod
-just ENV=prod local-apply   # → apply for prod
-just ENV=prod local-destroy # → destroy prod
-
-# aws environment:
-just aws-plan               # → plan for staging
-just aws-apply              # → apply for staging
-just aws-destroy            # → destroy staging
-
-just ENV=prod aws-plan      # → plan for prod
-just ENV=prod aws-apply     # → apply for prod
-just ENV=prod aws-destroy   # → destroy prod
 ```
 
 ## Layout

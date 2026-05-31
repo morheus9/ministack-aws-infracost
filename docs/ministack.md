@@ -32,4 +32,3 @@ chmod 600 kubeconfig.yaml
 echo "✅ kubeconfig saved to kubeconfig.yaml"
 echo "Use with: kubectl --kubeconfig=kubeconfig.yaml get nodes"
 ```
-

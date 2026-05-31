@@ -42,7 +42,7 @@ repos:
     - .
 
 - repo: https://github.com/bridgecrewio/checkov.git
-  rev: 3.2.528
+  rev: 3.2.530
   hooks:
   - id: checkov
     args: [ -d . ]
@@ -60,7 +60,7 @@ repos:
     files: .yaml$
 # ____________________________Terraform____________________________
 - repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.105.0
+  rev: v1.106.0
   hooks:
   - id: terraform_fmt
     args: [ -recursive ]
@@ -73,7 +73,7 @@ repos:
 # ____________________________Languages____________________________
 # Python
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.15.12
+  rev: v0.15.15
   hooks:
   - id: ruff-check
     args: [ --fix ]
