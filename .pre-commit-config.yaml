@@ -21,7 +21,7 @@ repos:
 # ____________________________Security____________________________
 
 - repo: https://github.com/hadolint/hadolint
-  rev: v2.14.0
+  rev: v2.15.1
   hooks:
   - id: hadolint
     args: [ "--failure-threshold", "warning", "Dockerfile" ]
@@ -42,7 +42,7 @@ repos:
     - .
 
 - repo: https://github.com/bridgecrewio/checkov.git
-  rev: 3.2.530
+  rev: 3.3.8
   hooks:
   - id: checkov
     args: [ -d . ]
@@ -60,7 +60,7 @@ repos:
     files: .yaml$
 # ____________________________Terraform____________________________
 - repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.106.0
+  rev: v1.108.1
   hooks:
   - id: terraform_fmt
     args: [ -recursive ]
@@ -73,7 +73,7 @@ repos:
 # ____________________________Languages____________________________
 # Python
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.15.15
+  rev: v0.16.1
   hooks:
   - id: ruff-check
     args: [ --fix ]
